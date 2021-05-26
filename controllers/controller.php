@@ -6,12 +6,9 @@
 
         public function __construct($user_id)
         {
-            if($user_id == NULL)
-            {
-                $_SESSION['id'] = 'na';
-            }
             $this->auth = new auth();
             $this->tasks_actions = new tasks_actions();
+            $this->auth->set_null_id($user_id);
         }
 
         public function auth_test($user_id, $login, $password)

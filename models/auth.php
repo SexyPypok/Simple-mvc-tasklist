@@ -43,5 +43,13 @@
         {
             session_unset();
         }
+
+        public function set_null_id($user_id)
+        {
+            if($user_id == NULL)
+            {
+                $_SESSION['id'] = 'na';
+            }
+        }
     }
 ?>

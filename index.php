@@ -1,7 +1,5 @@
 <?php session_start();
 
-
-
         spl_autoload_register(function ($cl) 
         {
             if(file_exists('models/' . $cl . '.php'))
@@ -30,7 +28,6 @@
         $remove_task = $controller->remove_task($_SESSION['id'], $_POST['remove_task_button']);
 
         $add_task = $controller->add_task($_SESSION['id'], $_POST['add_task_text'], $_POST['add_task_button']);
-
 
         $tasks = $controller->show_tasks($_SESSION['id']);
 
