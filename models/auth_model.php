@@ -1,5 +1,5 @@
 <?php
-    class auth extends database
+    class auth_model extends database
     {
         public function login($login, $password)
         {
@@ -10,8 +10,8 @@
             $user_info = $auth_user_query->fetch();
             if(password_verify($password, $user_info['password']) && $user_info)
             {
-                $_SESSION['login'] = $user_info['login'];
-                $_SESSION['id'] = $user_info['id'];
+                $this->set_session($user_info['login'], $user_info['id']);
+                print_r($_SESSION);
                 return '0';
             }
 
@@ -33,8 +33,7 @@
                 $reg_user_query->execute();
                 $auth_user_query->execute();
                 $user_info = $auth_user_query->fetch();
-                $_SESSION['login'] = $user_info['login'];
-                $_SESSION['id'] = $user_info['id'];
+                $this->set_session($user_info['login'], $user_info['id']);
                 return '0';
             }
         }
@@ -44,12 +43,11 @@
             session_unset();
         }
 
-        public function set_null_id($user_id)
+        public function set_session($login, $id)
         {
-            if($user_id == NULL)
-            {
-                $_SESSION['id'] = 'na';
-            }
+            $_SESSION['login'] = $login;
+            $_SESSION['id'] = $id;
+            $_SESSION['page'] = 'tasklist';
         }
     }
 ?>

@@ -1,31 +1,19 @@
 <?php
-    class controller
+    abstract class controller
     {
-        protected $auth;
         protected $tasks_actions;
 
-        public function __construct($user_id)
+        public function __construct()
         {
             $this->auth = new auth();
-            $this->tasks_actions = new tasks_actions();
-            $this->auth->set_null_id($user_id);
         }
 
-        public function auth_test($user_id, $login, $password)
-        {
-            if($user_id == 'na' && $login && $password)
-            {
-                $result = $this->auth->login($login, $password);
-                return $result;
-            }
-        }
+        
 
-        public function deauth($deauth)
+        public function get_body($class)
         {
-            if($deauth)
-            {
-                $this->auth->deauth();
-            }
+            $this->get_content();
+            include 'views/index.php';
         }
 
         public function show_tasks($user_id)
