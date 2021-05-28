@@ -1,5 +1,5 @@
 <?php
-    class tasks_actions extends database
+    class tasks_model extends database
     {
 
         public function add_task($user_id, $task_text)

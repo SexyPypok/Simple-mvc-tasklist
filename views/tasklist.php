@@ -4,7 +4,7 @@
 
 <div class = "add_task">
     <div class = "add_task_first_line">
-        <form method = "POST">
+        <form method = "POST" action = "?page=tasklist&add_task">
             <input type = "text" name = "add_task_text" placeholder = "Enter text...">
             <button type = "submit" name = "add_task_button" value = "1">Add task</button>
         </form>
@@ -25,8 +25,8 @@
 
 <div class = "tasks">
     <?php
-        if($tasks)
-            foreach($tasks as $task)
+        if($content)
+            foreach($content as $task)
             {   
     ?>   
                 <div class = "block_task">

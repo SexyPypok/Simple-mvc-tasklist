@@ -10,15 +10,21 @@
 
         public function get_content()
         {
-            $this->auth_test($_SESION['id'], $_POST['login'], $_POST['password']);
+            if($_POST['login'] && $_POST['password'])
+            {
+                $auth = $this->auth($_POST['login'], $_POST['password']);
+                if($auth)
+                {
+                    $this->auth_model->set_session($auth['id']);
+                    header('Location: ?page=tasklist');
+                }
+            }
         }
 
-        public function auth_test($user_id, $login, $password)
+        public function auth($login, $password)
         {
-            if($login && $password)
-            {
-                $result = $this->auth_model->login($login, $password);
-            }
+            $result = $this->auth_model->login($login, $password);
+            return $result;
         }
 
         public function deauth($deauth)

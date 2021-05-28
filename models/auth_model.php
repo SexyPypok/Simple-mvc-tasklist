@@ -10,14 +10,12 @@
             $user_info = $auth_user_query->fetch();
             if(password_verify($password, $user_info['password']) && $user_info)
             {
-                $this->set_session($user_info['login'], $user_info['id']);
-                print_r($_SESSION);
-                return '0';
+                return $user_info;
             }
 
             elseif($user_info)
             {
-                return '1';
+                return '0';
             }
 
             else
@@ -33,8 +31,7 @@
                 $reg_user_query->execute();
                 $auth_user_query->execute();
                 $user_info = $auth_user_query->fetch();
-                $this->set_session($user_info['login'], $user_info['id']);
-                return '0';
+                return $user_info;
             }
         }
 
@@ -43,11 +40,9 @@
             session_unset();
         }
 
-        public function set_session($login, $id)
+        public function set_session($id)
         {
-            $_SESSION['login'] = $login;
             $_SESSION['id'] = $id;
-            $_SESSION['page'] = 'tasklist';
         }
     }
 ?>

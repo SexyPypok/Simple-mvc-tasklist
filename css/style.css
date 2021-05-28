@@ -261,6 +261,11 @@ body
     color: white;
 }
 
+.display_none
+{
+    display: none;
+}
+
 /* Шрифты */
 
 @font-face {
