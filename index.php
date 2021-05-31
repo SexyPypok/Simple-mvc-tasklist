@@ -15,10 +15,8 @@
 
     if($_GET['c'] && $_SESSION['id'] && $_GET['method']) 
     {
-        $routs = parse_url($_SERVER['REQUEST_URI']);
-        $routs = explode('&', $routs['query']);
-        $class = explode('c=', $routs[0])[1];
-        $method = explode('method=', $routs[1])[1];
+        $class = $_GET['c'];
+        $method = $_GET['method'];
     }
 
     else
@@ -27,10 +25,10 @@
         $method = 'get_body';
     }
 
-    $obj = new $class($class);
 
     if(method_exists($class, $method))
     {
+        $obj = new $class($class);
         $obj->$method();
     }
 
