@@ -96,5 +96,10 @@
             }  
             return $switch;
         }
+
+        public function deauth()
+        {
+            session_unset();
+        }
     }
 ?>

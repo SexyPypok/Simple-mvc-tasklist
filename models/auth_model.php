@@ -8,14 +8,16 @@
             $auth_user_query->bindParam(':login', $login);
             $auth_user_query->execute();
             $user_info = $auth_user_query->fetch();
+
             if(password_verify($password, $user_info['password']) && $user_info)
             {
+                $this->set_session($user_info['id']);
                 return $user_info;
             }
 
             elseif($user_info)
             {
-                return '0';
+                return 0;
             }
 
             else
@@ -31,13 +33,9 @@
                 $reg_user_query->execute();
                 $auth_user_query->execute();
                 $user_info = $auth_user_query->fetch();
+                $this->set_session($user_info['id']);
                 return $user_info;
             }
-        }
-
-        public function deauth()
-        {
-            session_unset();
         }
 
         public function set_session($id)

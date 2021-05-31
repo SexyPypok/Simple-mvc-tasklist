@@ -3,26 +3,17 @@
     {
         public $tasks_model;
         public $auth_model;
+        protected $class;
 
-        public function __construct()
+        public function __construct($class)
         {
             $this->tasks_model = new tasks_model();
             $this->auth_model = new auth_model();
+            $this->class = $class;
         }
 
         public function get_content()
         {
-            if($_GET['add_task_button'] && $_GET['add_task_text'] && $_SESSION['id'])
-            {
-                $this->add_task($_SESSION['id'], $_GET['add_task_text']);
-            }
-
-            if($_GET['exit'])
-            {
-                $this->auth_model->deauth();
-                header('Location: ?page=auth');
-            }
-
             $tasks = $this->show_tasks($_SESSION['id']);
             return $tasks;
         }
@@ -41,42 +32,44 @@
             }
         }
 
-        public function remove_all($user_id, $button)
+        public function remove_all()
         {
-            if($button)
-            {
-                $this->tasks_actions->remove_all_tasks($user_id);
-            }
+            $this->tasks_model->remove_all_tasks($_SESSION['id']);
+            $this->get_body();
         }
 
-        public function ready_all($user_id, $button)
+        public function ready_all()
         {
-            if($button)
-            {
-                $this->tasks_actions->ready_all_tasks($user_id);
-            }
+            $this->tasks_model->ready_all_tasks($_SESSION['id']);
+            $this->get_body();
         }
 
-        public function remove_task($user_id, $task_id)
+        public function remove_task()
         {
-            if($task_id)
-            {
-                $this->tasks_actions->remove_task($user_id, $task_id);
-            }
+            $this->tasks_model->remove_task($_SESSION['id'], $_POST['remove_task_button']);
+            $this->get_body();
         }
 
-        public function ready_task($user_id, $task_id)
+        public function ready_task()
         {
-            if($task_id)
-            {
-                $this->tasks_actions->ready_task($user_id, $task_id);
-            }
+            $this->tasks_model->ready_task($_SESSION['id'], $_POST['ready_task_button']);
+            $this->get_body();
         }
 
         public function add_task()
         {
-            echo '124r435';
-            $this->tasks_model->add_task($_SESSION['id'], $_POST['add_task_text']);
+            if($_POST['add_task_text'])
+            {
+                $this->tasks_model->add_task($_SESSION['id'], $_POST['add_task_text']);
+            }
+
+            $this->get_body();
+        }
+
+        public function deauth()
+        {
+            $this->tasks_model->deauth();
+            header('Location: index.php');
         }
     }
 ?>

@@ -2,10 +2,12 @@
     class auth extends controller 
     {
         protected $auth_model;
+        protected $class;
         
-        public function __construct()
+        public function __construct($class)
         {
             $this->auth_model = new auth_model();
+            $this->class = $class;
         }
 
         public function get_content()
@@ -21,17 +23,13 @@
             }
         }
 
-        public function auth($login, $password)
+        public function auth()
         {
-            $result = $this->auth_model->login($login, $password);
-            return $result;
-        }
+            $result = $this->auth_model->login($_POST['login'], $_POST['password']);
 
-        public function deauth($deauth)
-        {
-            if($deauth)
+            if($result)
             {
-                $this->auth_model->deauth();
+                header('Location: index.php?c=tasklist&method=get_body');
             }
         }
     }
