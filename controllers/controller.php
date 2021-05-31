@@ -4,7 +4,7 @@
         public function get_body()
         {
             $content = $this->get_content();
-            
+
             require_once('views/header.php');
             require_once('views/markup_start.php');
             require_once('views/'.$this->class.'.php');
@@ -15,6 +15,11 @@
             }
 
             require_once('views/markup_end.php'); 
+        }
+
+        public function error()
+        {
+            require_once('views/error.php');
         }
     }
 ?>

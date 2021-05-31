@@ -42,7 +42,8 @@
 
     else
     {
-        echo 'error';
+        $obj = new controller();
+        $obj->error();
     }
     //$method = $route[1];
     //$obj->$method();// http://mvc/?page=tasklist&method=add_task, найти функцию 
