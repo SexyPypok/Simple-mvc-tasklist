@@ -6,6 +6,11 @@
         
         public function __construct($class)
         {
+            if($_SESSION['id'])
+            {
+                header('Location: index.php?c=tasklist&method=get_body');
+            }
+
             $this->auth_model = new auth_model();
             $this->class = $class;
         }
@@ -18,7 +23,7 @@
                 if($auth)
                 {
                     $this->auth_model->set_session($auth['id']);
-                    header('Location: ?page=tasklist');
+                    header('Location: ?c=tasklist&method=get_body');
                 }
             }
         }

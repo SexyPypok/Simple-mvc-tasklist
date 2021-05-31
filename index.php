@@ -21,12 +21,6 @@
         $method = explode('method=', $routs[1])[1];
     }
 
-    elseif($_SESSION['id'])
-    {
-        $class = 'tasklist';
-        $method = 'get_body';
-    }
-
     else
     {
         $class = 'auth';
